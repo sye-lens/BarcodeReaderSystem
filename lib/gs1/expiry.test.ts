@@ -28,4 +28,13 @@ describe("convertExpiry", () => {
   it("rawExpiryが26093の場合、例外を返す", () => {
     const rawExpiry = "26093";
     expect(() => convertExpiry(rawExpiry)).toThrow("期限が6文字ではありません");});
-});
+
+  it("rawExpiryが261313の場合、例外を返す", () => {
+    const rawExpiry = "261313";
+    expect(() => convertExpiry(rawExpiry)).toThrow("月が不正です");
+  });
+  it ("rawExpiryが260230の場合、例外を返す", () => {
+    const rawExpiry = "260230";
+    expect(() => convertExpiry(rawExpiry)).toThrow("日が不正です");
+  });
+  });
