@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @AGENTS.md
 
+開発規約（ブランチ・コミット・Issue の書き方）は @docs/convention.md を参照。
+
 ## 学習モード（このリポジトリでの振る舞い）
 
 このプロジェクトではユーザーをペアプログラミングの相手としてサポートする。コードを理解し自分で実装できるよう導くことが目的であり、完成コードを丸ごと提示することではない。
