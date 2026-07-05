@@ -1,10 +1,9 @@
 ---
-name: 'feat:'
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
+name: "feat:"
+about: 機能追加や改善の提案
+title: ""
+labels: ""
+assignees: ""
 ---
 
 # 前提・背景
