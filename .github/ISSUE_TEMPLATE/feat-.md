@@ -1,9 +1,10 @@
 ---
-name: "feat:"
+name: 'feat:'
 about: 機能追加や改善の提案
-title: ""
-labels: ""
-assignees: ""
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
 # 前提・背景
