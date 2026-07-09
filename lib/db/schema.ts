@@ -14,6 +14,7 @@ export const reagentLots = pgTable("reagent_lots", {
   expiry_date: date().notNull(),
   status: text(),
   opened_at: date(),
+  opened_by: uuid(),
   created_at: timestamp().defaultNow(),
 },(t) => [
   unique().on(t.gtin, t.lot_number),
@@ -23,5 +24,5 @@ export const usageRecords  = pgTable("usage_records", {
     id: uuid().primaryKey().defaultRandom(),
     lot_id: uuid().references(() => reagentLots.id).notNull(),
     used_at: timestamp().defaultNow(),
-    user_id: uuid(),
+    used_by: uuid(),
 });
