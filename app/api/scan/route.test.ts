@@ -75,4 +75,15 @@ describe("POST /api/scan", () => {
     const res = await POST(postRequest({}));
     expect(res.status).toBe(400);
   });
+
+  it("DB接続エラーなら503で明快なメッセージを返す", async () => {
+    vi.mocked(findProductByGtin).mockRejectedValue(
+      new Error("connect ECONNREFUSED 127.0.0.1:5432"),
+    );
+
+    const res = await POST(postRequest({ raw: VALID_RAW }));
+    expect(res.status).toBe(503);
+    const json = await res.json();
+    expect(json.error).toBeTruthy();
+  });
 });
