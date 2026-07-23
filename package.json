@@ -9,6 +9,7 @@
     "lint": "eslint",
     "test": "vitest",
     "db:seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "db:reset": "tsx --env-file=.env.local scripts/reset.ts",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
