@@ -96,7 +96,7 @@ export default function ScanPage() {
       {/* 手入力フォールバック */}
       <section className="flex flex-col gap-2">
         <label htmlFor="manual" className="text-sm font-medium">
-          手入力（区切りは <code className="rounded bg-gray-100 px-1">|</code> で代用可）
+          手入力（区切りは <code className="rounded bg-gray-100 px-1 text-gray-800">|</code> で代用可）
         </label>
         <textarea
           id="manual"
@@ -126,16 +126,16 @@ function ResultCard({ result }: { result: ScanResult }) {
 
   if (status === 201) {
     return (
-      <div className="rounded-lg border border-emerald-300 bg-emerald-50 p-4">
+      <div className="rounded-lg border border-emerald-300 bg-emerald-50 p-4 text-emerald-900">
         <p className="font-bold text-emerald-800">登録しました</p>
         <dl className="mt-2 grid grid-cols-[6rem_1fr] gap-y-1 text-sm">
-          <dt className="text-gray-500">商品名</dt>
+          <dt className="text-emerald-700">商品名</dt>
           <dd>{data.product?.name}</dd>
-          <dt className="text-gray-500">GTIN</dt>
+          <dt className="text-emerald-700">GTIN</dt>
           <dd className="font-mono">{data.gtin}</dd>
-          <dt className="text-gray-500">ロット</dt>
+          <dt className="text-emerald-700">ロット</dt>
           <dd className="font-mono">{data.lotNumber}</dd>
-          <dt className="text-gray-500">使用期限</dt>
+          <dt className="text-emerald-700">使用期限</dt>
           <dd>{data.expiryDate}</dd>
         </dl>
       </div>
