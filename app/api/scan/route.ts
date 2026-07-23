@@ -25,34 +25,46 @@ export async function POST(request: Request) {
     return Response.json({ error: message }, { status: 400 });
   }
 
-  // 3. 商品マスタ照合（未登録は404。読取結果を返してシード投入に使えるようにする）
-  const product = await findProductByGtin(scan.gtin);
-  if (!product) {
+  // 3〜5. DBアクセス。接続不可などの例外は503で明快なメッセージにする（スタックを見せない）。
+  try {
+    // 商品マスタ照合（未登録は404。読取結果を返してシード投入に使えるようにする）
+    const product = await findProductByGtin(scan.gtin);
+    if (!product) {
+      return Response.json(
+        {
+          error: "未登録のGTINです",
+          gtin: scan.gtin,
+          lotNumber: scan.lotNumber,
+          expiryDate: scan.expiryDate,
+        },
+        { status: 404 },
+      );
+    }
+
+    // ロット登録（(gtin, lot_number) 重複は409で弾く）
+    const lot = await registerReagentLot(scan);
+    if (!lot) {
+      return Response.json(
+        { error: "既に登録済みのロットです" },
+        { status: 409 },
+      );
+    }
+
+    // 登録成功
     return Response.json(
       {
-        error: "未登録のGTINです",
+        product,
         gtin: scan.gtin,
         lotNumber: scan.lotNumber,
         expiryDate: scan.expiryDate,
       },
-      { status: 404 },
+      { status: 201 },
+    );
+  } catch (e) {
+    console.error("[scan] DB error:", e);
+    return Response.json(
+      { error: "データベースに接続できません。時間をおいて再試行してください" },
+      { status: 503 },
     );
   }
-
-  // 4. ロット登録（(gtin, lot_number) 重複は409で弾く）
-  const lot = await registerReagentLot(scan);
-  if (!lot) {
-    return Response.json({ error: "既に登録済みのロットです" }, { status: 409 });
-  }
-
-  // 5. 登録成功
-  return Response.json(
-    {
-      product,
-      gtin: scan.gtin,
-      lotNumber: scan.lotNumber,
-      expiryDate: scan.expiryDate,
-    },
-    { status: 201 },
-  );
 }
